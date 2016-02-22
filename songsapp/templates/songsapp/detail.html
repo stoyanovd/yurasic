@@ -1,0 +1,8 @@
+<h1>
+    {{ song.title }}
+</h1>
+<ul>
+    {% for realization in song.realization_set.all %}
+        <li>{{ realization.content }}</li>
+    {% endfor %}
+</ul>
