@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAEQ,0GAAkG;AAG1G,WAAW;EACT,KAAK,EAAE,KAAK;EAEZ,WAAW,EARC,EAAE;EASd,YAAY,EATA,EAAE;EAYd,WAAW,EAAE,oBAAoB;EACjC,WAAW,EAAE,GAAG;;AAElB,WAAW;EACT,gBAAgB,EAAE,KAAK;;AAEzB,MAAM;EACJ,KAAK,EAAE,MAAM",
+"sources": ["commons.sass"],
+"names": [],
+"file": "commons.css"
+}

@@ -1,0 +1,15 @@
+@import url(https://fonts.googleapis.com/css?family=Fira+Mono|Anonymous+Pro|Cousine&subset=latin,cyrillic);
+.real_style {
+  color: white;
+  margin-left: 40;
+  margin-right: 40;
+  font-family: "Cousine", monospace;
+  white-space: pre; }
+
+.back_black {
+  background-color: black; }
+
+.chord {
+  color: yellow; }
+
+/*# sourceMappingURL=commons.css.map */

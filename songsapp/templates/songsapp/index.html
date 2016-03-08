@@ -1,11 +1,21 @@
-{% if alphabet_songs_list %}
-    <ul>
-        {% for song in alphabet_songs_list %}
-            <li>
-                <a href="{% url 'songsapp:detail' song.id %}">{{ song.title }}</a>
-            </li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>No songs.</p>
-{% endif %}
+{% extends "songsapp/base.html" %}
+
+{% block title %}
+    Songs index.
+{% endblock %}
+
+{% block body_content %}
+
+    {% if alphabet_songs_list %}
+        <ul>
+            {% for song in alphabet_songs_list %}
+                <li>
+                    <a href="{% url 'songsapp:detail' song.id %}">{{ song.title }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No songs.</p>
+    {% endif %}
+
+{% endblock %}

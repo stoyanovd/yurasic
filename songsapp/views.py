@@ -3,18 +3,29 @@ from django.shortcuts import render, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.views import generic
 
+from django.utils import timezone
 # from django.template import loader
-from .models import Song
+from .models import Song, Author, Realization
 
 
 # Create your views here.
-class IndexView(generic.ListView):
+class SongsIndexView(generic.ListView):
     template_name = 'songsapp/index.html'
     context_object_name = 'alphabet_songs_list'
 
     def get_queryset(self):
-        """Return 20 first in alphabet songs"""
-        return Song.objects.order_by('title')[:20]
+        return Song.objects.order_by('title')
+        # def get_queryset(self):
+        #     """Return 20 first in alphabet songs"""
+        #     return Song.objects.order_by('title')[:20]
+
+
+class AuthorsIndexView(generic.ListView):
+    template_name = 'songsapp/authors_index.html'
+    context_object_name = 'authors_dict'
+
+    def get_queryset(self):
+        return Author.objects.order_by('title')
 
 
 class DetailView(generic.DetailView):
@@ -24,7 +35,11 @@ class DetailView(generic.DetailView):
 
 class ContentView(generic.DetailView):
     model = Song
-    template_name = 'songsapp/results.html'
+    template_name = 'songsapp/song_realizations.html'
+    # context_object_name = 'rr'
+    #
+    # def get_queryset(self):
+    #     return self
 
 
 #

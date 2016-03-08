@@ -1,0 +1,24 @@
+{% extends 'songsapp/base.html' %}
+
+{% load songsapp_extras %}
+
+{% block body_content %}
+    <div class="back_black">
+
+        <h1 style="color: white;">
+            {{ song.title }}
+        </h1>
+
+        <ul>
+            {% for r in song.realization_set.all %}
+                <li class="real_style">
+                    <b>
+                        {{ r.create_date }}
+                    </b>
+                    <br>
+                    {{ r.content|linebreaksbr|chordify }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

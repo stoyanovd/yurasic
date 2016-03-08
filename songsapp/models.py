@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 from django.utils import timezone
 
@@ -20,8 +21,8 @@ class Song(models.Model):
     authors = models.ManyToManyField(Author)
 
     def __str__(self):
-        a = self.authors.first()
-        a = ', '.join(x.name for x in a) if a else "--no-author--"
+        a = self.authors.all()
+        a = str(a) if a else "--no-author--"
         return self.title + " (" + a + ")"
 
 
@@ -32,8 +33,11 @@ class Realization(models.Model):
 
     def __str__(self):
         a = self.song.authors.all()
-        a = ', '.join(x.name for x in a) if a else "--no-author--"
+        a = str(a) if a else "--no-author--"
         return self.song.title + " -- |" + a + "| -- " + " (" + self.content[:50] + "...)"
+
+    def was_created_recently(self):
+        return timezone.now() >= self.create_date >= timezone.now() - datetime.timedelta(days=1)
 
 
 def start_fill():
