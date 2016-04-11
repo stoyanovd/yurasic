@@ -1,0 +1,25 @@
+{% extends "songsapp/base.html" %}
+
+{% block title %}
+    Authors index.
+{% endblock %}
+
+{% block body_content %}
+
+    {% if authors_list %}
+        <div class="songs_list">
+            {% for author in authors_list %}
+                <a href="{% url 'songsapp:one_author_index' author.id %}">
+                    <div class="songapp_box">
+                        <div class="songapp_link">
+                        {{ author.name }}
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No Authors.</p>
+    {% endif %}
+
+{% endblock %}

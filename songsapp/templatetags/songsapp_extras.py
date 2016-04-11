@@ -33,9 +33,30 @@ def chordify(value, autoescape=None):
     #     s = re.sub('\b' + c + '\b', '<span class="chord">' + c + "</span>", s)
     #     s = re.sub('\b' + c + '\b', '<span class="chord">' + c + "</span>", s)
     # return mark_safe(s)
-    return mark_safe(re.sub(r'\b(?P<chord>[A-H]m?)\b', r'<span class="chord">\g<chord></span>', esc(value)))
-
+    return mark_safe(
+        re.sub(r'\b(?P<chord>[A-H]b?#?m?[0-9]?[0-9]?)\b', r'<span class="chord">\g<chord></span>', esc(value)))
 
 
 chordify.needs_autoescape = True
 register.filter(chordify)
+
+
+@stringfilter
+def color_song_keywords(value, autoescape=None):
+    if autoescape:
+        esc = conditional_escape
+    else:
+        esc = lambda x: x
+
+    keywords = ['Припев', 'Куплет',
+                'Интро', 'Вступление', 'Кода', 'Проигрыш',
+                'Chorus', 'Intro', 'Coda', 'Outro']
+    s = esc(value)
+    for k in keywords:
+        s = re.sub(r'\b(?P<keyword>' + k + r'\b[.: \n])', r'<span class="song_keyword">\g<keyword></span>', s)
+
+    return mark_safe(s)
+
+
+color_song_keywords.needs_autoescape = True
+register.filter(color_song_keywords)
