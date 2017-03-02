@@ -18,11 +18,21 @@ from django.contrib import admin
 
 from django.conf import settings
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.views.generic import RedirectView
+
+import songsapp.urls
 
 urlpatterns = [
-    #url(r'^$', include('songsapp.urls')),
-    url(r'^songs/', include('songsapp.urls')),
+    # # todo make it work!
     url(r'^admin/', admin.site.urls),
+    # url(r'^$', RedirectView.as_view(pattern_name='songs', permanent=False)),
+    # url(r'', include('songsapp.urls')),
+    # url(r'^songs/', include('songsapp.urls')),
+]
+
+urlpatterns += songsapp.urls.urlpatterns
+urlpatterns += [
+    url(r'^$', RedirectView.as_view(url='songs/', permanent=False))
 ]
 
 urlpatterns += staticfiles_urlpatterns()
