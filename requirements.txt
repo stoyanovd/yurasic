@@ -1,5 +1,13 @@
+# default server
+
 django
 dj_database_url
 whitenoise
 psycopg2
 gunicorn
+
+
+###
+
+scrapy
+django-dynamic-scraper
