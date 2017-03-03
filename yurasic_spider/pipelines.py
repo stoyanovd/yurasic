@@ -6,47 +6,49 @@
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import os
 
+from songsapp import models
+
 authors_file = '/home/dima/PycharmProjects/yurasic_spider/authors.txt'
 
 import sys
-sys.path += "main-package"
 
-from yurasic_spider.models import models
+sys.path += "main-package"
 
 
 class YurasicSpiderPipeline(object):
     def __init__(self):
-        import os
-        import psycopg2
-        import urllib.parse
+        pass
+        # import os
+        # import psycopg2
+        # import urllib.parse
 
-        os.environ.setdefault("DJANGO_SETTINGS_MODULE",
-                              "../../yurasic.settings")
-
-        urllib.parse.uses_netloc.append("postgres")
-        url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
-
-        self.conn = psycopg2.connect(
-            database=url.path[1:],
-            user=url.username,
-            password=url.password,
-            host=url.hostname,
-            port=url.port
-        )
-        self.authors = set()
-        self.songs = set()
+        # os.environ.setdefault("DJANGO_SETTINGS_MODULE",
+        #                       "../../yurasic.settings")
+        #
+        # urllib.parse.uses_netloc.append("postgres")
+        # url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
+        #
+        # self.conn = psycopg2.connect(
+        #     database=url.path[1:],
+        #     user=url.username,
+        #     password=url.password,
+        #     host=url.hostname,
+        #     port=url.port
+        # )
+        # self.authors = set()
+        # self.songs = set()
         # self.cur = self.conn.cursor()
         # self.inserts = 0
 
     def process_item(self, item, spider):
-        author = item['author']
-        if author not in self.authors:
-            self.authors.add(author)
+        author_name = item['author']
+        author_candidates = models.Author.objects.filter(name=author_name)
+
+        if not author_candidates:
             author_object = models.Author(name=author)
             author_object.save()
         else:
-            # todo if database is not empty
-            author_object = models.Author.objects.first(name=author)
+            author_object = author_candidates[0]
 
         title = item['title']
         song_object = models.Song(title=title)

@@ -23,6 +23,18 @@ class SongsIndexView(generic.ListView):
         #     return Song.objects.order_by('title')[:20]
 
 
+def import_from_old(request):
+    from scrapy.settings import Settings
+    from scrapy.crawler import CrawlerProcess
+    from yurasic_spider.spiders.song_spider import SongSpider
+
+    settings = Settings()
+    settings.setmodule('yurasic_spider.settings', priority='project')
+    crawler = CrawlerProcess(settings)
+    crawler.crawl(SongSpider)
+    crawler.start()
+
+
 def mongo_import(request):
     print("enter it")
     from pymongo import MongoClient
@@ -94,6 +106,7 @@ def one_author_index(request, author_id):
     one_author_list = author.song_set.order_by('title')
     context = {'author': author, 'one_author_list': one_author_list}
     return render(request, 'songsapp/one_author_list.html', context)
+
 
 #
 # class OneAuthorIndexView(generic.ListView):
