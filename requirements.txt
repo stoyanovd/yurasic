@@ -10,4 +10,7 @@ gunicorn
 ###
 
 scrapy
+scrapyd
+scrapyd-heroku
+
 django-dynamic-scraper
