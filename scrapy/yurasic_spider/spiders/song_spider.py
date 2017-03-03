@@ -1,11 +1,8 @@
 import copy
 import os
+
 import scrapy
-import unicodedata
-
-import sys
-
-from yurasic_spider.items import SongItem
+from scrapy.yurasic_spider import SongItem
 
 SONGS_DIRECTORY = 'songs'
 TAGS_KEY = 'tags'

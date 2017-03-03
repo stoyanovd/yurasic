@@ -1,13 +1,9 @@
-import datetime
 import time
 
-from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
-from django.core.urlresolvers import reverse
 from django.views import generic
 
-from django.utils import timezone
-# from django.template import loader
 from .models import Song, Author, Realization
 
 
@@ -26,7 +22,7 @@ class SongsIndexView(generic.ListView):
 def import_from_old(request):
     from scrapy.settings import Settings
     from scrapy.crawler import CrawlerProcess
-    from yurasic_spider.spiders.song_spider import SongSpider
+    from scrapy.yurasic_spider.spiders.song_spider import SongSpider
 
     settings = Settings()
     settings.setmodule('yurasic_spider.settings', priority='project')
