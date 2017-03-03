@@ -13,7 +13,11 @@ urlpatterns = [
     url(r'^songs/(?P<pk>[0-9]+)/$', views.ContentView.as_view(), name='detail'),
     url(r'^songs/(?P<pk>[0-9]+)/song_realizations/$', views.ContentView.as_view(), name='song_realizations'),
     url(r'^songs/(?P<song_id>[0-9]+)/add_some/$', views.add_some, name='add_some'),
-    url(r'^mongo_import/$', views.mongo_import, name='mongo_import'),
+
+    # sth outdated
+    # url(r'^mongo_import/$', views.mongo_import, name='mongo_import'),
+
+    url(r'^import_from_old/$', views.import_from_old, name='import_from_old'),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

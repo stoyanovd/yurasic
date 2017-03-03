@@ -30,7 +30,10 @@ urlpatterns = [
     # url(r'^songs/', include('songsapp.urls')),
 ]
 
-urlpatterns += songsapp.urls.urlpatterns
+# urlpatterns += songsapp.urls.urlpatterns
+urlpatterns += [
+    url(r'', include('songsapp.urls'))
+]
 urlpatterns += [
     url(r'^$', RedirectView.as_view(url='songs/', permanent=False))
 ]
