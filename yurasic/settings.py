@@ -29,13 +29,14 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'songsapp.apps.SongsappConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'songsapp.apps.SongsappConfig',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -75,11 +76,22 @@ WSGI_APPLICATION = 'yurasic.wsgi.application'
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+# #        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#         'NAME': 'yurasic_db',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        'NAME': 'yurasic_db',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'yurasic',
+        'USER': 'yurasic_user',
+        'PASSWORD': '12345',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
@@ -91,6 +103,7 @@ DATABASES['default'].update(db_from_env)
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
 
+# TODO maybe you are to strict???
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',

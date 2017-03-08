@@ -5,36 +5,48 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import os
+import sys
 
+import django
+import psycopg2
+import urlparse
+
+# import urllib.parse
+
+# os.environ.setdefault("DJANGO_SETTINGS_MODULE", "yurasic.settings")
+# django.setup()
 from songsapp import models
 
-authors_file = '/home/dima/PycharmProjects/yurasic_spider/authors.txt'
-
-import sys
+# authors_file = '/home/dima/PycharmProjects/yurasic_spider/authors.txt'
 
 sys.path += "main-package"
 
 
+def startup_django_env():
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "yurasic.settings")
+    django.setup()
+    return __import__('songsapp.models')
+
+
+# not used, only for hints
+def psql_startup():
+    urlparse.uses_netloc.append("postgres")
+    url = urlparse.urlparse(os.environ["DATABASE_URL"])
+
+    conn = psycopg2.connect(
+        database=url.path[1:],
+        user=url.username,
+        password=url.password,
+        host=url.hostname,
+        port=url.port
+    )
+
+
 class YurasicSpiderPipeline(object):
     def __init__(self):
-        pass
-        # import os
-        # import psycopg2
-        # import urllib.parse
+        # startup_django_env()
 
-        # os.environ.setdefault("DJANGO_SETTINGS_MODULE",
-        #                       "../../yurasic.settings")
-        #
-        # urllib.parse.uses_netloc.append("postgres")
-        # url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
-        #
-        # self.conn = psycopg2.connect(
-        #     database=url.path[1:],
-        #     user=url.username,
-        #     password=url.password,
-        #     host=url.hostname,
-        #     port=url.port
-        # )
+        pass
         # self.authors = set()
         # self.songs = set()
         # self.cur = self.conn.cursor()
@@ -45,7 +57,7 @@ class YurasicSpiderPipeline(object):
         author_candidates = models.Author.objects.filter(name=author_name)
 
         if not author_candidates:
-            author_object = models.Author(name=author)
+            author_object = models.Author(name=author_name)
             author_object.save()
         else:
             author_object = author_candidates[0]

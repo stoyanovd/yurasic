@@ -16,8 +16,17 @@ class SongSpider(scrapy.Spider):
         if not response.css('#page_title_song'):
             # print('RESPONSE li a:', response.xpath('//li/a').extract())
             for entry in response.xpath('//li/a'):  # .extract():
-                url = entry.xpath('@href').extract()[0]
-                entry_name = entry.css('.textDir::text').extract()[0]
+                url_list = entry.xpath('@href').extract()
+                if url_list:
+                    url = url_list[0]
+                else:
+                    continue
+                entry_name_list = entry.css('.textDir::text').extract()
+                if entry_name_list:
+                    entry_name = entry_name_list[0]
+                else:
+                    continue
+
                 # print('-------------  ENTRY NAME ---------')
                 # print(entry_name.encode('utf-8  '))
                 entry_name = entry_name.strip().encode('utf-8')
@@ -66,6 +75,8 @@ class SongSpider(scrapy.Spider):
         i['content'] = song_content
         if len(response.meta[TAGS_KEY]) > 1:
             i['author'] = response.meta[TAGS_KEY][-2]
+        else:
+            i['author'] = ''
         i['tags'] = response.meta[TAGS_KEY]
 
         return i

@@ -8,6 +8,8 @@ from .MyConsts import MC
 # Create your models here.
 
 class Author(models.Model):
+    app_label = 'songsapp'
+
     name = models.CharField(max_length=MC.MAX_NAME_LENGTH)
 
     # songs many-to-many
@@ -16,6 +18,8 @@ class Author(models.Model):
 
 
 class Song(models.Model):
+    app_label = 'songsapp'
+
     title = models.CharField(max_length=MC.MAX_NAME_LENGTH)
     # realizations one-to-many
     authors = models.ManyToManyField(Author)
@@ -27,6 +31,8 @@ class Song(models.Model):
 
 
 class Realization(models.Model):
+    app_label = 'songsapp'
+
     content = models.TextField()
     song = models.ForeignKey(Song, on_delete=models.CASCADE)
     create_date = models.DateTimeField('date created', default=timezone.now)

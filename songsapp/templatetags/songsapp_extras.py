@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django.template import Library
 from django.template.defaultfilters import stringfilter
 from django.utils.html import conditional_escape

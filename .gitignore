@@ -1,5 +1,8 @@
 /db.sqlite3
 /yurasic_db
+dbs
+
+twistd.pid
 
 venv
 venv-py2
