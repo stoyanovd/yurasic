@@ -2,17 +2,10 @@ import copy
 import os
 
 import scrapy
-from yurasic_spider import SongItem
+from yurasic_spider.items import SongItem
 
 SONGS_DIRECTORY = 'songs'
 TAGS_KEY = 'tags'
-#
-# class SongItem(scrapy.Item):
-#     url = scrapy.Field()
-#     title = scrapy.Field()
-#     author = scrapy.Field()
-#     tags = scrapy.Field()
-#     content = scrapy.Field()
 
 
 class SongSpider(scrapy.Spider):
@@ -56,25 +49,15 @@ class SongSpider(scrapy.Spider):
             yield i
             # yield scrapy.Request(response.url, self.parse_song)
 
-
     def parse_song(self, response):
-
         song_content = u''
         for content in response.xpath('//*[@id="songStyle"]/pre/text()').extract():
             song_content = content
-        song_dir = response.meta[TAGS_KEY][:-1]
-
-        song_dir.insert(0, SONGS_DIRECTORY)
-        song_dir = os.path.join(*song_dir)
 
         song_title = response.meta[TAGS_KEY][-1]
-        try:
-            os.makedirs(song_dir)
-        except:
-            pass
-        song_path = os.path.join(song_dir, song_title + '.txt')
-        # with open(song_path, 'w') as f:
-        #     f.write(song_content.encode('utf-8'))
+
+        # song_dir = response.meta[TAGS_KEY][:-1]
+        # SongSpider.write_to_file(song_title, song_dir, song_content)
 
         i = SongItem()
 
@@ -86,3 +69,13 @@ class SongSpider(scrapy.Spider):
         i['tags'] = response.meta[TAGS_KEY]
 
         return i
+
+    @staticmethod
+    def write_to_file(song_title, song_dir, song_content):
+        song_dir.insert(0, SONGS_DIRECTORY)
+        song_dir = os.path.join(*song_dir)
+        os.makedirs(song_dir, exist_ok=True)
+
+        song_path = os.path.join(song_dir, song_title + '.txt')
+        with open(song_path, 'w') as f:
+            f.write(song_content.encode('utf-8'))

@@ -7,14 +7,11 @@
 
 import scrapy
 
-
 # class YurasicSpiderItem(scrapy.Item):
 #     # define the fields for your item here like:
 #     # name = scrapy.Field()
 #     pass
 
-SONGS_DIRECTORY = 'songs'
-TAGS_KEY = 'tags'
 
 class SongItem(scrapy.Item):
     url = scrapy.Field()

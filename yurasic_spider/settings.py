@@ -62,11 +62,23 @@ NEWSPIDER_MODULE = 'yurasic_spider.spiders'
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'yurasic_spider.pipelines.YurasicSpiderPipeline': 300,
+    'scrapy_redis.pipelines.RedisPipeline': 999,
+   # 'yurasic_spider.pipelines.YurasicSpiderPipeline': 300,
   # 'scrapy_mongodb.MongoDBPipeline',
 }
 
-# MONGODB_URI = 'mongodb://localhost:27017'
+# Specify the host and port to use when connecting to Redis (optional).
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
+
+DATABASE_URL = 'redis://localhost:6379'
+
+# Specify the full Redis URL for connecting (optional).
+# If set, this takes precedence over the REDIS_HOST and REDIS_PORT settings.
+# REDIS_URL = 'redis://user:pass@hostname:9001'
+
+
+#  MONGODB_URI = 'mongodb://localhost:27017'
 # MONGODB_DATABASE = 'scrapy'
 # MONGODB_COLLECTION = 'my_items'
 
