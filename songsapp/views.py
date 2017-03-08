@@ -22,7 +22,7 @@ class SongsIndexView(generic.ListView):
 def import_from_old(request):
     from scrapy.settings import Settings
     from scrapy.crawler import CrawlerProcess
-    from scrapy.yurasic_spider.spiders.song_spider import SongSpider
+    from yurasic_spider import SongSpider
 
     settings = Settings()
     settings.setmodule('yurasic_spider.settings', priority='project')

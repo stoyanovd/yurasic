@@ -2,6 +2,7 @@
 /yurasic_db
 
 venv
+venv-py2
 *.pyc
 yurasic/static
 .env

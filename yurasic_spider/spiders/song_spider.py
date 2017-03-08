@@ -2,7 +2,7 @@ import copy
 import os
 
 import scrapy
-from scrapy.yurasic_spider import SongItem
+from yurasic_spider import SongItem
 
 SONGS_DIRECTORY = 'songs'
 TAGS_KEY = 'tags'
