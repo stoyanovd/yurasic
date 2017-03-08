@@ -8,6 +8,7 @@
 #     http://doc.scrapy.org/en/latest/topics/settings.html
 #     http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
+import os
 
 BOT_NAME = 'yurasic_spider'
 
@@ -71,11 +72,9 @@ ITEM_PIPELINES = {
 REDIS_HOST = 'localhost'
 REDIS_PORT = 6379
 
-DATABASE_URL = 'redis://localhost:6379'
-
 # Specify the full Redis URL for connecting (optional).
 # If set, this takes precedence over the REDIS_HOST and REDIS_PORT settings.
-# REDIS_URL = 'redis://user:pass@hostname:9001'
+REDIS_URL = os.environ['REDISCLOUD_URL']
 
 
 #  MONGODB_URI = 'mongodb://localhost:27017'
