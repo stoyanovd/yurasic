@@ -10,16 +10,24 @@
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 import os
 
-# os.environ.setdefault("DJANGO_SETTINGS_MODULE", "yurasic.settings")
-import django
-from django.conf import settings
+# There is a note somewhere in internet, that this line breaks Scrapy logging
+# nevertheless, it doesn't help
+# LOG_STDOUT = True
 
-LOG_STDOUT=True
+# from twisted.internet.defer import setDebugging
+# setDebugging(True)
 
-# os.environ.setdefault("DJANGO_SETTINGS_MODULE", "yurasic.settings")
+# from django.conf import settings
 # settings.configure()
+# django.setup()
+
+import django
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "yurasic.settings")
 django.setup()
+
+
+FEED_EXPORT_ENCODING = 'utf-8'
+
 
 BOT_NAME = 'yurasic_spider'
 
@@ -79,8 +87,8 @@ ITEM_PIPELINES = {
 }
 
 # Specify the host and port to use when connecting to Redis (optional).
-REDIS_HOST = 'localhost'
-REDIS_PORT = 6379
+# REDIS_HOST = 'localhost'
+# REDIS_PORT = 6379
 
 # Specify the full Redis URL for connecting (optional).
 # If set, this takes precedence over the REDIS_HOST and REDIS_PORT settings.

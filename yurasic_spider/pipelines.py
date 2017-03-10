@@ -4,54 +4,13 @@
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
-import os
-import sys
 
-import django
-import psycopg2
-import urlparse
-
-# import urllib.parse
-
-# os.environ.setdefault("DJANGO_SETTINGS_MODULE", "yurasic.settings")
-# django.setup()
 from songsapp import models
 
-# authors_file = '/home/dima/PycharmProjects/yurasic_spider/authors.txt'
 
-sys.path += "main-package"
-
-
-def startup_django_env():
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "yurasic.settings")
-    django.setup()
-    return __import__('songsapp.models')
-
-
-# not used, only for hints
-def psql_startup():
-    urlparse.uses_netloc.append("postgres")
-    url = urlparse.urlparse(os.environ["DATABASE_URL"])
-
-    conn = psycopg2.connect(
-        database=url.path[1:],
-        user=url.username,
-        password=url.password,
-        host=url.hostname,
-        port=url.port
-    )
-
+# sys.path += "main-package"
 
 class YurasicSpiderPipeline(object):
-    def __init__(self):
-        # startup_django_env()
-
-        pass
-        # self.authors = set()
-        # self.songs = set()
-        # self.cur = self.conn.cursor()
-        # self.inserts = 0
-
     def process_item(self, item, spider):
         author_name = item['author']
         author_candidates = models.Author.objects.filter(name=author_name)
@@ -74,6 +33,8 @@ class YurasicSpiderPipeline(object):
 
         return item
 
+        ############
+        # Outdated
 
         # def insert_item(self, table_name, item):
         #     # print_item(item)
@@ -94,3 +55,23 @@ class YurasicSpiderPipeline(object):
         #     # item['playid'], item['artist'], item['songtitle'], self.databaseTable)
         #
         #     self.inserts += 1
+
+
+# not used, only for hints
+def psql_startup():
+    import os
+    import psycopg2
+    import urlparse
+
+    # import urllib.parse
+
+    urlparse.uses_netloc.append("postgres")
+    url = urlparse.urlparse(os.environ["DATABASE_URL"])
+
+    conn = psycopg2.connect(
+        database=url.path[1:],
+        user=url.username,
+        password=url.password,
+        host=url.hostname,
+        port=url.port
+    )

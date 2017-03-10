@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
 Django settings for yurasic project.
 
@@ -86,7 +88,8 @@ WSGI_APPLICATION = 'yurasic.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'yurasic',
         'USER': 'yurasic_user',
         'PASSWORD': '12345',
