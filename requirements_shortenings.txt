@@ -16,6 +16,8 @@ scrapy-heroku==0.7.1
 scrapy-redis==0.6.8
 scrapyd==1.2.0a1
 
+scrapyd-heroku
+
 ###
 
 pymongo
