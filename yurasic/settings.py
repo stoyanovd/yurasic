@@ -93,6 +93,7 @@ WSGI_APPLICATION = 'yurasic.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
+
 def get_database_url():
     import urllib.parse as urlparse
     urlparse.uses_netloc.append("postgres")
