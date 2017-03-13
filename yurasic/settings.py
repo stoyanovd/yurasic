@@ -22,10 +22,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def check_if_on_heroku():
     ENV_ON_HEROKU = 'ON_HEROKU'
-    if ENV_ON_HEROKU in os.environ and os.environ[ENV_ON_HEROKU]:
+    if ENV_ON_HEROKU in os.environ:
         return True
     return False
-
 
 ON_HEROKU = check_if_on_heroku()
 
@@ -103,17 +102,36 @@ WSGI_APPLICATION = 'yurasic.wsgi.application'
 #     }
 # }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        # 'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'yurasic',
-        'USER': 'yurasic_user',
-        'PASSWORD': '12345',
-        'HOST': 'localhost',
-        'PORT': '5432',
+def get_database_url():
+    import urlparse
+    urlparse.uses_netloc.append("postgres")
+    url = urlparse.urlparse(os.environ["DATABASE_URL"])
+    return url
+
+database_url = get_database_url()
+
+if ON_HEROKU:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': database_url.path[1:],
+            'USER': database_url.username,
+            'PASSWORD': database_url.password,
+            'HOST': database_url.hostname,
+            'PORT': database_url.port,
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'yurasic',
+            'USER': 'yurasic_user',
+            'PASSWORD': '12345',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
+    }
 
 # Update database configuration with $DATABASE_URL.
 import dj_database_url
