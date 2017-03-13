@@ -4,16 +4,33 @@
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
+import os
 
-from songsapp import models
+import django
+import logging
+from django import db
+
+
+# from songsapp import models
 
 
 # sys.path += "main-package"
 
+# from songsapp.models import Author, Song, Realization
+
 class YurasicSpiderPipeline(object):
     def process_item(self, item, spider):
+
         author_name = item['author']
+        models = spider.models
+        logging.info('models: ' + str(models))
         author_candidates = models.Author.objects.filter(name=author_name)
+        logging.info('models: ' + str(author_candidates))
+
+        # raise Exception(os.linesep + os.linesep +
+        #                 author_name + os.linesep +
+        #                 str(author_candidates) +
+        #                 os.linesep + os.linesep)
 
         if not author_candidates:
             author_object = models.Author(name=author_name)
@@ -22,16 +39,28 @@ class YurasicSpiderPipeline(object):
             author_object = author_candidates[0]
 
         title = item['title']
+        # song_object = models.Song(title=title, authors=[author_object])
         song_object = models.Song(title=title)
-        song_object.authors.add(author_object)
         song_object.save()
+        song_object.authors.add(author_object)
 
         content = item['content']
-        realization_object = models.Realization(content=content)
-        realization_object.song = song_object
-        realization_object.save()
+        song_object.realization_set.create(
+            content=content
+        )
+        # realization_object = models.Realization(content=content, song=song_object)
+        # realization_object.save()
+        # realization_object.song = song_object
 
         return item
+
+    def open_spider(self, spider):
+        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "yurasic.settings")
+        django.setup()
+        spider.models = __import__('songsapp.models').models
+
+    def close_spider(self, spider):
+        db.connections.close_all()
 
         ############
         # Outdated

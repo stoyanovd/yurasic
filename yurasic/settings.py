@@ -15,13 +15,30 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from utils.try_get_env import try_get_env
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
+def check_if_on_heroku():
+    ENV_ON_HEROKU = 'ON_HEROKU'
+    if ENV_ON_HEROKU in os.environ and os.environ[ENV_ON_HEROKU]:
+        return True
+    return False
+
+
+ON_HEROKU = check_if_on_heroku()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
+# Get ENV in local usecase
+try_get_env('.env')
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '1g^=#snq!g38okif#m(7y%#2lo*bkm3=#vj+es663=mb+=ya#n'
+SECRET_KEY = os.environ['YURASIC_SECRET_KEY']
+
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -88,8 +105,8 @@ WSGI_APPLICATION = 'yurasic.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        # 'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'yurasic',
         'USER': 'yurasic_user',
         'PASSWORD': '12345',
@@ -100,6 +117,7 @@ DATABASES = {
 
 # Update database configuration with $DATABASE_URL.
 import dj_database_url
+
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 

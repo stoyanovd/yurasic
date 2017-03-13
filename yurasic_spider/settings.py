@@ -21,9 +21,9 @@ import os
 # settings.configure()
 # django.setup()
 
-import django
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "yurasic.settings")
-django.setup()
+# import django
+# os.environ.setdefault("DJANGO_SETTINGS_MODULE", "yurasic.settings")
+# django.setup()
 
 
 FEED_EXPORT_ENCODING = 'utf-8'
