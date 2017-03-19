@@ -10,6 +10,11 @@ venv-py2
 yurasic/static
 .env
 
+# [scrapyd]
+logs/
+
+###############################
+###############################
 ###############################
 
 
@@ -74,6 +79,8 @@ docs/_build/
 target/
 
 ###############################
+###############################
+###############################
 
 ### JetBrains template
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio
@@ -123,3 +130,6 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 
+###############################
+###############################
+###############################
