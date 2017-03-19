@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from . import views
@@ -18,6 +18,11 @@ urlpatterns = [
     # url(r'^mongo_import/$', views.mongo_import, name='mongo_import'),
 
     url(r'^import_from_old/$', views.import_from_old, name='import_from_old'),
+]
+
+# Search
+urlpatterns += [
+    url(r'^search/', include('haystack.urls')),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

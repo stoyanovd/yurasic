@@ -5,46 +5,56 @@ from django.utils import timezone
 from .MyConsts import MC
 
 
-# Create your models here.
+class Tag(models.Model):
+    app_label = 'songsapp'
+
+    # I think we don't need one-letter tags
+    # (and not sure that we need two-letters tags)
+    name = models.CharField(max_length=MC.MAX_NAME_LENGTH, blank=False)
+    # TODO think about synonyms
+
 
 class Author(models.Model):
     app_label = 'songsapp'
 
-    name = models.CharField(max_length=MC.MAX_NAME_LENGTH)
+    name = models.CharField(max_length=MC.MAX_NAME_LENGTH, blank=False)
+    tags = models.ManyToManyField(Tag)
 
-    # songs many-to-many
-    # def __str__(self):
-    #     return self.name
+    # TODO create_date maybe needed too
 
 
 class Song(models.Model):
     app_label = 'songsapp'
 
-    title = models.CharField(max_length=MC.MAX_NAME_LENGTH)
+    title = models.CharField(max_length=MC.MAX_NAME_LENGTH, blank=False)
     # realizations one-to-many
     authors = models.ManyToManyField(Author)
+    tags = models.ManyToManyField(Tag)
 
-    # def __str__(self):
-    #     a = self.authors.all()
-    #     a = str(a) if a else "--no-author--"
-    #     return self.title + " (" + a + ")"
+    def any_author_name(self):
+        a = self.authors.all()
+        if a:
+            return a.first().name
+        else:
+            return '#no-author'
+
+            # TODO create_date maybe needed too
 
 
 class Realization(models.Model):
     app_label = 'songsapp'
 
-    content = models.TextField()
+    content = models.TextField(blank=True)
     song = models.ForeignKey(Song, on_delete=models.CASCADE)
     create_date = models.DateTimeField('date created', default=timezone.now)
+    tags = models.ManyToManyField(Tag)
 
-    # def __str__(self):
-    #     a = self.song.authors.all()
-    #     a = str(a) if a else "--no-author--"
-    #     return self.song.title + " -- |" + a + "| -- " + " (" + self.content[:50] + "...)"
+    source_url = models.URLField(blank=True)
 
     def was_created_recently(self):
         return timezone.now() >= self.create_date >= timezone.now() - datetime.timedelta(days=1)
 
-
-def start_fill():
-    pass
+    def get_absolute_url(self):
+        from django.urls import reverse
+        # TODO learn how to use reverse here
+        return '/songs/%i/' % self.id

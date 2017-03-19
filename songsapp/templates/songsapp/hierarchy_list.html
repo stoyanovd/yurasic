@@ -7,7 +7,7 @@
 {% block body_content %}
 
     {% if authors_list %}
-        <div class="songs_list">
+        <div class="songs_list" align="middle">
             {% for author in authors_list %}
                 <a href="{% url 'songsapp:one_author_index' author.id %}">
                     <div class="songapp_box">

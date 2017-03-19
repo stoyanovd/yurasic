@@ -19,5 +19,12 @@ scrapyd==1.2.0a1
 scrapyd-heroku
 
 ###
+certifi
 
+elasticsearch
+django-haystack
+# elasticsearch>=1.0.0,<2.0.0
+# django-haystack>=1.0.0,<2.0.0
+
+###
 pymongo

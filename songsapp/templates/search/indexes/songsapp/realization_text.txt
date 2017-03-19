@@ -1,0 +1,3 @@
+{{ object.song.title }}
+{{ object.authors }}
+{{ object.content }}

@@ -26,6 +26,7 @@ def check_if_on_heroku():
         return True
     return False
 
+
 ON_HEROKU = check_if_on_heroku()
 
 # Quick-start development settings - unsuitable for production
@@ -36,8 +37,6 @@ try_get_env('.env')
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ['YURASIC_SECRET_KEY']
-
-
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -55,6 +54,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'haystack',
 
     'songsapp.apps.SongsappConfig',
 ]
@@ -92,9 +93,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'yurasic.wsgi.application'
 
+
+###############################################################################
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
-
+###############################################################################
 
 def get_database_url():
     import urllib.parse as urlparse
@@ -133,10 +136,33 @@ import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 
+###############################################################################
+# Elasticsearch and haystack
+###############################################################################
+
+import urllib.parse as urlparse
+
+ES_URL = urlparse.urlparse(os.environ.get('BONSAI_URL') or 'http://127.0.0.1:9200/')
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'URL': ES_URL.scheme + '://' + ES_URL.hostname + ':443',
+        'INDEX_NAME': 'haystack',
+    },
+}
+if ES_URL.username:
+    HAYSTACK_CONNECTIONS['default']['KWARGS'] = \
+        {"http_auth": ES_URL.username + ':' + ES_URL.password}
+
+###############################################################################
+#
+###############################################################################
+
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
 
-# TODO maybe you are to strict???
+# TODO maybe you are too strict???
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
