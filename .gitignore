@@ -3,6 +3,7 @@
 dbs
 
 twistd.pid
+.python-version
 
 venv
 venv-py2
