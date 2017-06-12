@@ -3,6 +3,8 @@ import os
 import configparser
 
 
+# https://docs.python.org/3/library/configparser.html
+
 def try_get_env(env_file):
     if not os.path.exists(env_file):
         return
