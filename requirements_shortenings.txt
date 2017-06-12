@@ -25,6 +25,7 @@ Scrapy==1.3.2
 # scrapy-heroku==0.7.1
 
 ###
+requests[security]
 certifi
 
 elasticsearch
