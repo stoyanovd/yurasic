@@ -4,6 +4,7 @@ from telegram.ext import Updater, CommandHandler
 import logging
 from telegram.ext import MessageHandler, Filters
 
+from tgbot.googlesearch import google_search
 from utils.import_models import get_models_from_yurasic_django
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -24,10 +25,13 @@ def hello(bot, update):
 
 def echo(bot, update):
     # global d
-    wonder = yurasic_models.Wonder(comment=update.message.text)
-    wonder.save()
-    # d += [update.message.text]
-    bot.send_message(chat_id=update.message.chat_id, text="I add: " + update.message.text)
+    msg = update.message.text
+    ans = google_search(msg)
+
+    # wonder = yurasic_models.Wonder(comment=update.message.text)
+    # wonder.save()
+    # # d += [update.message.text]
+    bot.send_message(chat_id=update.message.chat_id, text="I find: " + ans)
 
 
 # from songsapp import models
