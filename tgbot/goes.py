@@ -4,8 +4,14 @@ from telegram.ext import Updater, CommandHandler
 import logging
 from telegram.ext import MessageHandler, Filters
 
+from utils.import_models import get_models_from_yurasic_django
+
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
+
+yurasic_models = get_models_from_yurasic_django()
+
+d = []
 
 
 def start(bot, update):
@@ -19,7 +25,13 @@ def hello(bot, update):
 
 
 def echo(bot, update):
-    bot.send_message(chat_id=update.message.chat_id, text=update.message.text)
+    global d
+    d += [update.message.text]
+    bot.send_message(chat_id=update.message.chat_id, text="I add: " + update.message.text)
+
+
+def write_list(bot, update):
+    update.message.reply_text(str(d))
 
 
 #################################################
@@ -38,10 +50,9 @@ updater = Updater(TOKEN)
 dispatcher = updater.dispatcher
 dispatcher.add_handler(CommandHandler('start', start))
 dispatcher.add_handler(CommandHandler('hello', hello))
+dispatcher.add_handler(CommandHandler('list', write_list))
 
-echo_handler = MessageHandler(Filters.text, echo)
-dispatcher.add_handler(echo_handler)
-
+dispatcher.add_handler(MessageHandler(Filters.text, echo))
 
 print("finish set up bot.")
 
