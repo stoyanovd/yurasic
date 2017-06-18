@@ -35,7 +35,7 @@ def echo(bot, update):
 def write_list(bot, update):
     ans = ["Comments: "]
     for w in yurasic_models.Wonder.objects.all():
-        ans += "  - " + w.comment
+        ans += ["  - " + w.comment]
 
     ans = os.linesep.join(ans)
     update.message.reply_text(ans)
