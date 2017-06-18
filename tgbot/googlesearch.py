@@ -17,6 +17,7 @@ def google_search(s):
     results = inner_google_search(s, my_api_key, my_cse_id, num=10)
 
     ans = str()
-    for result in results:
-        pprint.pprint(result, stream=ans)
+    with open(ans, 'w') as f:
+        for result in results:
+            pprint.pprint(result, stream=f)
     return ans
