@@ -1,5 +1,8 @@
 # default server
 
+python-telegram-bot
+
+pyyaml
 
 django
 dj_database_url
