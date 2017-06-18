@@ -33,8 +33,12 @@ def echo(bot, update):
 # from songsapp import models
 
 def write_list(bot, update):
-    d = list(yurasic_models.Wonder.objects.all())
-    update.message.reply_text(str(d))
+    ans = ["Comments: "]
+    for w in yurasic_models.Wonder.objects.all():
+        ans += "  - " + w.comment
+
+    ans = os.linesep.join(ans)
+    update.message.reply_text(ans)
 
 
 #################################################
