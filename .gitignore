@@ -5,6 +5,8 @@ dbs
 twistd.pid
 .python-version
 
+latest.dump
+
 venv
 venv-py2
 *.pyc

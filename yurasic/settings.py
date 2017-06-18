@@ -42,7 +42,8 @@ SECRET_KEY = os.environ['YURASIC_SECRET_KEY']
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'yurasic.herokuapp.com'
+    'yurasic.herokuapp.com',
+    '127.0.0.1'
 ]
 
 # Application definition
@@ -107,6 +108,7 @@ def get_database_url():
 
 
 if ON_HEROKU:
+    print("Init Database on heroku")
     database_url = get_database_url()
     DATABASES = {
         'default': {
@@ -119,6 +121,7 @@ if ON_HEROKU:
         }
     }
 else:
+    print("Init Database on local")
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -134,7 +137,12 @@ else:
 import dj_database_url
 
 db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
+for k,v in db_from_env.items():
+    # not None and not empty
+    if v:
+        DATABASES['default'][k] = v
+
+print(DATABASES)
 
 ###############################################################################
 # Elasticsearch and haystack
