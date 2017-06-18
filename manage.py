@@ -5,7 +5,7 @@ import sys
 from utils.try_get_env import try_get_env
 
 if __name__ == "__main__":
-    try_get_env('.env')
+    try_get_env('.env.yaml')
 
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "yurasic.settings")
 

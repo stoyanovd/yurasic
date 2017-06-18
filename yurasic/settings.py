@@ -33,7 +33,7 @@ ON_HEROKU = check_if_on_heroku()
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # Get ENV in local usecase
-try_get_env('.env')
+try_get_env('.env.yaml')
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ['YURASIC_SECRET_KEY']
