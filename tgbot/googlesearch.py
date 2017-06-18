@@ -1,4 +1,5 @@
 import os
+import urllib.parse
 
 from googleapiclient.discovery import build
 import pprint
@@ -18,6 +19,8 @@ def google_search(s):
 
     ans = ["Search results: "]
     for result in results:
-        ans += [pprint.pformat(result)]
+        ans += [urllib.parse.quote_plus(pprint.pformat(result))]
     ans = os.linesep.join(ans)
+    if len(ans) > 200:
+        ans = ans[:200]
     return ans
