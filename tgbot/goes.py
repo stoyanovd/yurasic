@@ -11,8 +11,6 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 yurasic_models = get_models_from_yurasic_django()
 
-d = []
-
 
 def start(bot, update):
     update.message.reply_text('Hello World!')
@@ -25,12 +23,17 @@ def hello(bot, update):
 
 
 def echo(bot, update):
-    global d
-    d += [update.message.text]
+    # global d
+    wonder = yurasic_models.Wonder(comment=update.message.text)
+    wonder.save()
+    # d += [update.message.text]
     bot.send_message(chat_id=update.message.chat_id, text="I add: " + update.message.text)
 
 
+# from songsapp import models
+
 def write_list(bot, update):
+    d = list(yurasic_models.Wonder.objects.all())
     update.message.reply_text(str(d))
 
 

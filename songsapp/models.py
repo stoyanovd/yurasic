@@ -58,3 +58,9 @@ class Realization(models.Model):
         from django.urls import reverse
         # TODO learn how to use reverse here
         return '/songs/%i/' % self.id
+
+
+class Wonder(models.Model):
+    app_label = 'songsapp'
+
+    comment = models.TextField(blank=False)
