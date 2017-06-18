@@ -17,6 +17,8 @@ from django import db
 # sys.path += "main-package"
 
 # from songsapp.models import Author, Song, Realization
+from utils.import_models import get_models_from_yurasic_django
+
 
 class YurasicSpiderPipeline(object):
     def process_item(self, item, spider):
@@ -55,9 +57,7 @@ class YurasicSpiderPipeline(object):
         return item
 
     def open_spider(self, spider):
-        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "yurasic.settings")
-        django.setup()
-        spider.models = __import__('songsapp.models').models
+        spider.models = get_models_from_yurasic_django()
 
     def close_spider(self, spider):
         db.connections.close_all()
