@@ -4,13 +4,13 @@ python-telegram-bot
 
 pyyaml
 
+google-api-python-client
+
 django
 dj_database_url
 whitenoise
 psycopg2
 gunicorn
-
-configparser
 
 ###
 
