@@ -27,7 +27,7 @@ def echo(bot, update):
 token_str = 'TELEGRAM_BOT_TOKEN'
 assert token_str in os.environ.keys()
 
-TOKEN = os.environ(token_str)
+TOKEN = os.environ.get(token_str)
 PORT = int(os.environ.get('PORT', '5000'))
 
 #################################################
@@ -35,12 +35,13 @@ PORT = int(os.environ.get('PORT', '5000'))
 
 updater = Updater(TOKEN)
 
-updater.dispatcher.add_handler(CommandHandler('start', start))
-updater.dispatcher.add_handler(CommandHandler('hello', hello))
+dispatcher = updater.dispatcher
+dispatcher.add_handler(CommandHandler('start', start))
+dispatcher.add_handler(CommandHandler('hello', hello))
 
 echo_handler = MessageHandler(Filters.text, echo)
-dispatcher = updater.dispatcher
 dispatcher.add_handler(echo_handler)
+
 
 print("finish set up bot.")
 
