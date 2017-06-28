@@ -18,9 +18,15 @@ def google_search(s):
     results = inner_google_search(s, my_api_key, my_cse_id, num=10)
 
     ans = ["Search results: "]
+    ans += ["len: " + str(len(results))]
+
+    sites = []
     for result in results:
-        ans += [urllib.parse.quote_plus(pprint.pformat(result))]
+        sites += [urllib.parse.quote_plus(pprint.pformat(result))]
+
     ans = os.linesep.join(ans)
-    if len(ans) > 200:
-        ans = ans[:200]
+    ans = "ans len: " + str(len(ans)) + ans
+
+    if len(ans) > 500:
+        ans = ans[:500]
     return ans
