@@ -5,16 +5,16 @@
 {% block body_content %}
     <div class="back_black">
 
-        <h1 style="color: white;">
-            &nbsp;&nbsp;&nbsp;&nbsp;{{ song.title }}
+        <h1 style="color: white; margin-left: 20px;">
+            {{ song.title }}
         </h1>
 
         <ul>
             {% for r in song.realization_set.all %}
                 <div class="song_text_style">
-{#                    <b>#}
-{#                        {{ r.create_date }}#}
-{#                    </b>#}
+                    {#                    <b>#}
+                    {#                        {{ r.create_date }}#}
+                    {#                    </b>#}
                     <br>
                     {{ r.content|linebreaksbr|chordify|color_song_keywords }}
                 </div>
