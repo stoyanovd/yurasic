@@ -43,7 +43,7 @@ def google_search(s):
     sites = []
     for result in results:
         # sites += [urllib.parse.quote_plus(pprint.pformat(result))]
-        result = result.keys()
+        # result = result.keys()
         sites += [pprint.pformat(result)]
 
     ans += sites
@@ -51,6 +51,8 @@ def google_search(s):
     ans = os.linesep.join(ans)
     ans = "ans len: " + str(len(ans)) + ans
 
-    if len(ans) > 500:
-        ans = ans[:500]
+    k = 4000
+
+    if len(ans) > k:
+        ans = ans[:k]
     return ans
