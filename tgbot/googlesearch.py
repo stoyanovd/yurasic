@@ -73,12 +73,12 @@ def google_search(s):
         print(result[GSEARCH_link])
 
         # t.me/iv?url=...&rhash=...
+        # "url=" + urllib.parse.urlencode(result[GSEARCH_link]) +
         if result[GSEARCH_displayLink] in iv_templates.keys():
-            result += {'iv': "t.me/iv?" +
-                             # "url=" + urllib.parse.urlencode(result[GSEARCH_link]) +
-                             "url=" + urllib.parse.quote(result[GSEARCH_link]) +
-                             "&rhash=" + iv_templates[result[GSEARCH_displayLink]]
-                       }
+            result['iv'] = "t.me/iv?" + \
+                           "url=" + urllib.parse.quote(result[GSEARCH_link]) + \
+                           "&rhash=" + iv_templates[result[GSEARCH_displayLink]]
+
         sites += [pprint.pformat(result)]
 
     ####################
