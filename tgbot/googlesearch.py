@@ -68,10 +68,15 @@ def google_search(s):
         result = {k: result[k] for k in INTERESTING_KEYS}
         result[GSEARCH_displayLink] = url_clean_http_www(result[GSEARCH_displayLink])
 
+        print("---")
+        print(result[GSEARCH_displayLink])
+        print(result[GSEARCH_link])
+
         # t.me/iv?url=...&rhash=...
         if result[GSEARCH_displayLink] in iv_templates.keys():
             result += {'iv': "t.me/iv?" +
-                             "url=" + urllib.parse.urlencode(result[GSEARCH_link]) +
+                             # "url=" + urllib.parse.urlencode(result[GSEARCH_link]) +
+                             "url=" + urllib.parse.quote(result[GSEARCH_link]) +
                              "&rhash=" + iv_templates[result[GSEARCH_displayLink]]
                        }
         sites += [pprint.pformat(result)]
