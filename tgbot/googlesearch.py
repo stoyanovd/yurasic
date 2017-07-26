@@ -43,6 +43,7 @@ def google_search(s):
     sites = []
     for result in results:
         # sites += [urllib.parse.quote_plus(pprint.pformat(result))]
+        result = result.keys()
         sites += [pprint.pformat(result)]
 
     ans += sites
