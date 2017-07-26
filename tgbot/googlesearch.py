@@ -2,6 +2,8 @@ import os
 import urllib.parse
 
 import sys
+
+import re
 from googleapiclient.discovery import build
 import pprint
 
@@ -33,6 +35,26 @@ def get_word_chords_in_lang(s):
     return CHORDS_RU + " "
 
 
+GSEARCH_displayLink = 'displayLink'
+GSEARCH_link = 'link'
+INTERESTING_KEYS = [GSEARCH_displayLink, GSEARCH_link]
+
+iv_templates = {
+    'yurasic.ru': "2db311abdefc3d",
+    'urasic.ru': "2db311abdefc3d",
+    'muzland.ru': "8b93af5fe73bbd",
+    'mychords.net': "2278ec51479966",
+}
+
+
+def url_clean_http_www(url):
+    if url.startswith('http'):
+        url = re.sub(r'https?://', '', url)
+    if url.startswith('www.'):
+        url = re.sub(r'www\.', '', url)
+    return url
+
+
 def google_search(s):
     results = inner_google_search(get_word_chords_in_lang(s) + s,
                                   my_api_key, my_cse_id, num=10)
@@ -43,8 +65,22 @@ def google_search(s):
     sites = []
     for result in results:
         # sites += [urllib.parse.quote_plus(pprint.pformat(result))]
-        # result = result.keys()
+        result = {k: result[k] for k in INTERESTING_KEYS}
+        result[GSEARCH_displayLink] = url_clean_http_www(result[GSEARCH_displayLink])
+
+        # t.me/iv?url=...&rhash=...
+        if result[GSEARCH_displayLink] in iv_templates.keys():
+            result += {'iv': "t.me/iv?" +
+                             "url=" + urllib.parse.urlencode(result[GSEARCH_link]) +
+                             "&rhash=" + iv_templates[result[GSEARCH_displayLink]]
+                       }
         sites += [pprint.pformat(result)]
+
+    ####################
+    # we need next keys
+    # displayLink: domain name
+    # link: full link
+    # snippet and title - maybe for future use
 
     ans += sites
 
