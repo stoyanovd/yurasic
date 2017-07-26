@@ -15,8 +15,8 @@
                     {#                    <b>#}
                     {#                        {{ r.create_date }}#}
                     {#                    </b>#}
-                    <br>
-                    {{ r.content|linebreaksbr|chordify|color_song_keywords }}
+                    <br />
+                    {{ r.content|turn_tabs_to_spaces|linebreaksbr|chordify|color_song_keywords }}
                 </div>
             {% endfor %}
         </ul>

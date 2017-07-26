@@ -64,3 +64,12 @@ def color_song_keywords(value, autoescape=None):
 
 color_song_keywords.needs_autoescape = True
 register.filter(color_song_keywords)
+
+
+@stringfilter
+def turn_tabs_to_spaces(value, autoescape=None):
+    return re.sub(r'\t', r' ', value)
+
+
+turn_tabs_to_spaces.needs_autoescape = False
+register.filter(turn_tabs_to_spaces)
