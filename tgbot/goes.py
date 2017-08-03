@@ -69,8 +69,8 @@ print("finish set up bot.")
 
 updater.start_webhook(listen="0.0.0.0",
                       port=PORT,
-                      url_path=str("tgbot/") + TOKEN)
-updater.bot.set_webhook("https://yurasic.herokuapp.com/tgbot/" + TOKEN)
+                      url_path=str("") + TOKEN)
+updater.bot.set_webhook("https://yurasic-tgbot.herokuapp.com/" + TOKEN)
 
 # time to try webhooks
 # updater.start_polling()

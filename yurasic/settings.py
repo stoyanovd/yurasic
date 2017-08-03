@@ -44,6 +44,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'yurasic.herokuapp.com',
+    'yurasic-tgbot.herokuapp.com',
     '127.0.0.1'
 ]
 
