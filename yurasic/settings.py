@@ -36,7 +36,8 @@ ON_HEROKU = check_if_on_heroku()
 try_get_env('.env.yaml')
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['YURASIC_SECRET_KEY']
+#SECRET_KEY = os.environ['YURASIC_SECRET_KEY']
+SECRET_KEY = os.environ['YURASIC_TGBOT_SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
