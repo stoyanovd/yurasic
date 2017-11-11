@@ -14,7 +14,7 @@ from django import db
 
 class YurasicSpiderToDbPipeline(object):
     def process_item(self, item, spider):
-        logging.info('models: ' + str(item.name))
+        logging.info('models: ' + str(item['title']))
 
         return item
 

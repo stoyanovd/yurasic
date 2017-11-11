@@ -65,7 +65,7 @@ NEWSPIDER_MODULE = 'yurasic_spider_to_db.spiders'
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     # 'scrapy_redis.pipelines.RedisPipeline': 999,
-    'yurasic_spider_light.pipelines.YurasicSpiderToDbPipeline': 300,
+    'yurasic_spider_to_db.pipelines.YurasicSpiderToDbPipeline': 300,
     # 'scrapy_mongodb.MongoDBPipeline',
 }
 

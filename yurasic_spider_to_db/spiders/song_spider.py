@@ -21,13 +21,14 @@ class Node:
         self.children = children
         self.parent = parent
         if self.parent:
-            self.pointer_to_db = models.HierarchyItem(self.parent.pointer_to_db)
+            self.pointer_to_db = models.HierarchyItem(parent=self.parent.pointer_to_db)
+            self.pointer_to_db.save()
         else:
             self.pointer_to_db = None
 
 
 class SongSpider(scrapy.Spider):
-    name = 'yurasic_spider_light'
+    name = 'yurasic_spider_to_db'
     # start_urls = ['http://www.yurasic.ru']
     start_urls = ['http://www.yurasic.ru/catalog/pesni-u-kostra']
 
@@ -94,7 +95,7 @@ class SongSpider(scrapy.Spider):
         song_title = []
         for sub_list in response.xpath('//*[@id="page_title_song"]/h1/text()').extract():
             song_title += sub_list
-        song_title = u''.join(song_content)
+        song_title = u''.join(song_title)
 
         assert HIERARCHY_KEY in response.meta
         parent = response.meta[HIERARCHY_KEY]
@@ -163,6 +164,7 @@ class SongSpider(scrapy.Spider):
         #     author_object = author_candidates[0]
 
         title = song_item['title']
+        assert len(title) < 200
         # song_object = models.Song(title=title, authors=[author_object])
         song_object = models.Song(title=title, node=node.pointer_to_db)
         song_object.save()
