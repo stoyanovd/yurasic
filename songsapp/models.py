@@ -23,7 +23,7 @@ class HierarchyItem(models.Model):
     app_label = 'songsapp'
 
     parent = models.ForeignKey('self', null=True, related_name='children')
-    name = models.CharField(blank=False)
+    name = models.CharField(blank=False, max_length=100)
 
     # content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     # object_id = models.PositiveIntegerField()
