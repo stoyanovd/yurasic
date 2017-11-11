@@ -7,10 +7,17 @@
 {% block body_content %}
 
     {% load admin_urls %}
-{#<a href="{% url 'opts|admin_urlname:' %}">Add user</a>#}
-<a href="{% url 'admin:songsapp_song_changelist' %}">Go to admin</a>
+    {#<a href="{% url 'opts|admin_urlname:' %}">Add user</a>#}
+    <div style="margin-left: 20px; margin-bottom: 15px;">
 
-{#<a href="{% url opts|admin_urlname:'delete' user.pk %}">Delete this user</a>#}
+        <a href="{% url 'admin:songsapp_song_changelist' %}"
+           class="btn btn-outline-primary">
+
+            Go to admin
+        </a>
+    </div>
+
+    {#<a href="{% url opts|admin_urlname:'delete' user.pk %}">Delete this user</a>#}
 
     {% if alphabet_songs_list %}
         <ul>
