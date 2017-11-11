@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from .models import Author, Song, Realization
+from .models import Author, Song, Realization, Tag, HierarchyItem
 
 # Register your models here.
 
-admin.site.register([Author, Song, Realization])
+admin.site.register([Author, Song, Realization, Tag, HierarchyItem])
