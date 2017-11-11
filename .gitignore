@@ -1,10 +1,7 @@
 #################################################
 # databases dumps
 
-/db.sqlite3
-/yurasic_db
-dbs
-latest.dump
+dump*
 
 #################################################
 # current python env
@@ -33,5 +30,4 @@ __pycache__/
 
 #################################################
 # JetBrains IDEA
-*.iml
 .idea/
