@@ -6,6 +6,12 @@
 
 {% block body_content %}
 
+    {% load admin_urls %}
+{#<a href="{% url 'opts|admin_urlname:' %}">Add user</a>#}
+<a href="{% url 'admin:songsapp_song_changelist' %}">Go to admin</a>
+
+{#<a href="{% url opts|admin_urlname:'delete' user.pk %}">Delete this user</a>#}
+
     {% if alphabet_songs_list %}
         <ul>
             {% for song in alphabet_songs_list %}
