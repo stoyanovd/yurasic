@@ -9,24 +9,8 @@
 #     http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 
-# There is a note somewhere in internet, that this line breaks Scrapy logging
-# nevertheless, it doesn't help
-# LOG_STDOUT = True
-
-# from twisted.internet.defer import setDebugging
-# setDebugging(True)
-
-# from django.conf import settings
-# settings.configure()
-# django.setup()
-
-# import django
-# os.environ.setdefault("DJANGO_SETTINGS_MODULE", "yurasic.settings")
-# django.setup()
-
 
 FEED_EXPORT_ENCODING = 'utf-8'
-
 
 BOT_NAME = 'yurasic_spider_light'
 
