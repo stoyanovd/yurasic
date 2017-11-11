@@ -8,7 +8,7 @@ import re
 
 register = Library()
 
-
+@register.filter(is_safe=True, needs_autoescape=True)
 @stringfilter
 def spacify(value, autoescape=None):
     if autoescape:
@@ -18,8 +18,8 @@ def spacify(value, autoescape=None):
     return mark_safe(re.sub('\s', '&' + 'nbsp;', esc(value)))
 
 
-spacify.needs_autoescape = True
-register.filter(spacify)
+# spacify.needs_autoescape = True
+# register.filter(spacify)
 
 
 @register.filter(is_safe=True, needs_autoescape=True)
@@ -66,7 +66,7 @@ def add_spans_to_text(value, autoescape=False):
 # add_spans_to_text.needs_autoescape = False
 # register.filter(add_spans_to_text)
 
-
+@register.filter(is_safe=True, needs_autoescape=True)
 @stringfilter
 def color_song_keywords(value, autoescape=None):
     if autoescape:
@@ -84,14 +84,14 @@ def color_song_keywords(value, autoescape=None):
     return mark_safe(s)
 
 
-color_song_keywords.needs_autoescape = True
-register.filter(color_song_keywords)
+# color_song_keywords.needs_autoescape = True
+# register.filter(color_song_keywords)
 
-
+@register.filter(is_safe=True, needs_autoescape=True)
 @stringfilter
 def turn_tabs_to_spaces(value, autoescape=None):
-    return re.sub(r'\t', r' ', value)
+    return re.sub(r'\t', r'    ', value)
 
 
-turn_tabs_to_spaces.needs_autoescape = False
-register.filter(turn_tabs_to_spaces)
+# turn_tabs_to_spaces.needs_autoescape = False
+# register.filter(turn_tabs_to_spaces)
