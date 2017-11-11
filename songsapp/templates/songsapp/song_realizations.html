@@ -5,6 +5,15 @@
 {% block body_content %}
     <div class="back_black">
 
+        <div class="container">
+            <ol class="breadcrumb bread-primary">
+                {% for parent in parents %}
+                    <li><a href="{% url 'songsapp:hierarchy' parent.id %}">{{ parent.name }}</a></li>
+                {% endfor %}
+                <li class="active">{{ song.title }}</li>
+            </ol>
+        </div>
+
         <h1 style="color: white; margin-left: 20px;">
             {{ song.title }}
         </h1>
@@ -41,7 +50,7 @@
                             </div>
 
                             {# ### Song's text ### #}
-                            <div class="song_text_style">
+                            <div class="song_text_style" style="min-width: 600px; font-size: larger;">
                                 {#                        {{ r.create_date }}#}
                                 <br/>
                                 {# Attention: about leading spaces - either use such div around or set fromatter off and no-indent #}

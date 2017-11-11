@@ -6,6 +6,15 @@
 
 {% block body_content %}
 
+    <div class="container">
+        <ol class="breadcrumb bread-primary">
+            {% for parent in parents %}
+                <li><a href="{% url 'songsapp:hierarchy' parent.id %}">{{ parent.name }}</a></li>
+            {% endfor %}
+            <li class="active">{{ node.name }}</li>
+        </ol>
+    </div>
+
     <h1 style="color: white; margin-left: 20px;">
         {{ node.name }}
     </h1>
@@ -25,8 +34,9 @@
             {% for child in children %}
                 {% if child.1 != None %}
 
-                    <a href="{% url 'songsapp:song_content' child.1.id %}" class="list-group-item list-group-item-action "
-                       style="margin-bottom: 10px; margin-left: 30px; background-color: slategray; color: ghostwhite;
+                    <a href="{% url 'songsapp:song_content' child.1.id %}"
+                       class="list-group-item list-group-item-action "
+                       style="margin-bottom: 10px; margin-left: 30px; background-color: gray; color: ghostwhite;
                     border-radius: 10px;">{{ child.0.name }}</a>
 
                 {% else %}

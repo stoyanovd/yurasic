@@ -31,14 +31,32 @@ def one_author_index(request, author_id):
     return render(request, 'songsapp/one_author_list.html', context)
 
 
-class DetailView(generic.DetailView):
+class SongContentView(generic.DetailView):
     model = Song
-    template_name = 'songsapp/detail.html'
+    template_name = 'songsapp/song_realizations.html'
+    # template_name = 'songsapp/detail.html'
+    context_object_name = 'song'
+
+    def get_context_data(self, **kwargs):
+        context = super(SongContentView, self).get_context_data(**kwargs)
+
+        cur = self.object.node
+        parents = []
+        # we will use this for breadcrumb, so minus ourselves:
+        cur = cur.parent
+        while cur is not None:
+            parents += [cur]
+            cur = cur.parent
+        context['parents'] = reversed(parents)
+
+        return context
 
 
 class ContentView(generic.DetailView):
     model = Song
     template_name = 'songsapp/song_realizations.html'
+
+
     # context_object_name = 'rr'
     #
     # def get_queryset(self):
@@ -62,6 +80,16 @@ class HierarchyView(generic.DetailView):
         children = [(n, song_if_leaf(n)) for n in children]
         print(children)
         context['children'] = children
+
+        cur = self.object
+        parents = []
+        # we will use this for breadcrumb, so minus ourselves:
+        cur = cur.parent
+        while cur is not None:
+            parents += [cur]
+            cur = cur.parent
+        context['parents'] = reversed(parents)
+
         return context
 
         # def get_context_data(self, **kwargs):(self):
