@@ -12,6 +12,7 @@ class Tag(models.Model):
     # (and not sure that we need two-letters tags)
     # name = models.CharField(max_length=MC.MAX_NAME_LENGTH, blank=False)
     tag = models.SlugField(default="")
+
     # TODO think about synonyms_namings
 
     def __str__(self):
@@ -35,14 +36,14 @@ class Author(models.Model):
     app_label = 'songsapp'
 
     name = models.CharField(max_length=MC.MAX_NAME_LENGTH, blank=False)
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, blank=True)
 
     node = models.OneToOneField('HierarchyItem', null=True)
 
     def __str__(self):
         return self.name
 
-    # TODO create_date maybe needed too
+        # TODO create_date maybe needed too
 
 
 class Song(models.Model):
@@ -51,7 +52,7 @@ class Song(models.Model):
     title = models.CharField(max_length=MC.MAX_NAME_LENGTH, blank=False)
     # realizations one-to-many
     authors = models.ManyToManyField(Author)
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, blank=True)
 
     node = models.OneToOneField('HierarchyItem', null=True, related_name='target')
 
@@ -74,7 +75,7 @@ class Realization(models.Model):
     content = models.TextField(blank=True)
     song = models.ForeignKey(Song, on_delete=models.CASCADE, related_name='realization_set')
     create_date = models.DateTimeField('date created', default=timezone.now)
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, blank=True)
 
     source_url = models.URLField(blank=True)
 
@@ -87,6 +88,9 @@ class Realization(models.Model):
         from django.urls import reverse
         # TODO learn how to use reverse here
         return '/songs/%i/' % self.id
+
+    def __str__(self):  # __unicode__ on Python 2
+        return (self.song.title if self.song else "-no-song") + " (real.id:" + str(self.id) + ")"
 
 
 from django.db import models
