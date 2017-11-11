@@ -15,16 +15,82 @@
                 {#        <ul class="d-block m-x-auto">#}
                 <ul>
                     {% for r in song.realization_set.all %}
-                        <a href="{% url 'admin:songsapp_song_change' r.id %}"
+                        <a href="{% url 'admin:songsapp_realization_change' r.id %}"
                            class="btn btn-outline-primary">
                             Edit
                         </a>
+
+
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-primary active rrr">
+                                <input type="radio" name="toggle_chords_radio" value="both"
+                                       autocomplete="off" checked>
+                                Normal
+                            </label>
+                            <label class="btn btn-primary rrr">
+                                <input type="radio" name="toggle_chords_radio" value="chords"
+                                       autocomplete="off">
+                                Chords
+                            </label>
+                            <label class="btn btn-primary rrr">
+                                <input type="radio" name="toggle_chords_radio" value="text"
+                                       autocomplete="off">
+                                Text
+                            </label>
+                        </div>
+
+
+                        <script type="text/javascript">
+
+
+                            function toggleOnlyChordsVisibility() {
+                                $('.chords_line_collapse').css('display', 'inline');
+                                $('.text_collapse').css('display', 'none');
+
+                                {#                                $('.chords_line_collapse').css('visibility', 'visible');#}
+                                {#                                $('.text_collapse').css('visibility', 'hidden');#}
+                            }
+
+                            function toggleOnlyTextVisibility() {
+
+                                $('.chords_line_collapse').css('display', 'none');
+                                $('.text_collapse').css('display', 'inline');
+
+                                {#                                $('.chords_line_collapse').css('visibility', 'hidden');#}
+                                {#                                $('.text_collapse').css('visibility', 'visible');#}
+                            }
+
+                            function toggleBothChordsAndTextVisibility() {
+
+                                $('.chords_line_collapse').css('display', 'inline');
+                                $('.text_collapse').css('display', 'inline');
+                                {#                                $('.chords_line_collapse').css('visibility', 'visible');#}
+                                {#                                $('.text_collapse').css('visibility', 'visible');#}
+                            }
+                            var rad = $("[name='toggle_chords_radio']");
+                            console.log('len:', rad.length);
+
+                            for (var i = 0; i < rad.length; i++) {
+                                if (rad[i].value === 'both') {
+                                    rad[i].parentElement.addEventListener('click', toggleBothChordsAndTextVisibility)
+                                } else if (rad[i].value === 'chords') {
+                                    rad[i].parentElement.addEventListener('click', toggleOnlyChordsVisibility)
+                                } else if (rad[i].value === 'text') {
+                                    {#                                    console.log('Current:', rad[i].value);#}
+                                    rad[i].parentElement.addEventListener('click', toggleOnlyTextVisibility)
+                                }
+                            }
+                            {#   $('.chords_collapse').css('visibility', $('#video-over').css('visibility') == 'hidden' ? 'visible' :#}
+                            {#   'hidden');#}
+                        </script>
+
                         <div class="song_text_style">
                             {#                    <b>#}
                             {#                        {{ r.create_date }}#}
                             {#                    </b>#}
                             <br/>
-                            {{ r.content|turn_tabs_to_spaces|linebreaksbr|chordify|color_song_keywords }}
+                            {# Attention: without div there will be leading spaces!!!#}
+                            <div>{{ r.content|turn_tabs_to_spaces|linebreaksbr|chordify|add_spans_to_text|color_song_keywords }}</div>
                         </div>
                     {% endfor %}
                 </ul>

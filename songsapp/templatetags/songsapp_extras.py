@@ -22,6 +22,7 @@ spacify.needs_autoescape = True
 register.filter(spacify)
 
 
+@register.filter(is_safe=True, needs_autoescape=True)
 @stringfilter
 def chordify(value, autoescape=None):
     if autoescape:
@@ -38,11 +39,32 @@ def chordify(value, autoescape=None):
     return mark_safe(
         re.sub(r'(?m)(?P<chord>\b[A-H]b?#?m?[0-9]?[0-9]?(sus[0-9])?(?=\s|\b|$))',
 
-               r'<span class="chord">\g<chord></span>', esc(value)))
+               r'<span class="chord chords_collapse">\g<chord></span>', esc(value)))
 
 
-chordify.needs_autoescape = True
-register.filter(chordify)
+# chordify.needs_autoescape = False
+# register.filter(chordify)
+
+@register.filter(is_safe=True, needs_autoescape=True)
+@stringfilter
+def add_spans_to_text(value, autoescape=False):
+    """
+    Converts all newlines in a piece of plain text to HTML line breaks
+    (``<br />``).
+    """
+    lines = value.split('<br />')
+    spanned_lines = []
+    for s in lines:
+        if 'chords_collapse' in s:
+            spanned_lines += ["<span class='chords_line_collapse'>" + s + '<br />' + "</span>"]
+        else:
+            spanned_lines += ["<span class='text_collapse'>" + s + '<br />' + "</span>"]
+    value = ''.join(spanned_lines)
+    return value
+
+
+# add_spans_to_text.needs_autoescape = False
+# register.filter(add_spans_to_text)
 
 
 @stringfilter
