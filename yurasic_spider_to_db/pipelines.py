@@ -22,7 +22,7 @@ class YurasicSpiderToDbPipeline(object):
         from utils.import_models import get_models_from_yurasic_django
         spider.models = get_models_from_yurasic_django()
 
-        h = spider.models.HierarchyItem(parent=None)
+        h = spider.models.HierarchyItem(parent=None, name='root')
         h.save()
         spider.root_node.pointer_to_db = h
 

@@ -21,7 +21,7 @@ class Node:
         self.children = children
         self.parent = parent
         if self.parent:
-            self.pointer_to_db = models.HierarchyItem(parent=self.parent.pointer_to_db)
+            self.pointer_to_db = models.HierarchyItem(parent=self.parent.pointer_to_db, name=self.name)
             self.pointer_to_db.save()
         else:
             self.pointer_to_db = None
