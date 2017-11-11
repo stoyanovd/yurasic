@@ -12,7 +12,7 @@
     {% if one_author_list %}
         <div class="songs_list">
             {% for song in one_author_list %}
-                <a href="{% url 'songsapp:detail' song.id %}">
+                <a href="{% url 'songsapp:song_content' song.id %}">
                     <div class="songapp_box">
                         <div class="songapp_link">
                             {{ song.title }}

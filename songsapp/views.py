@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
 
-from .models import Song, Author, Realization
+from .models import Song, Author, Realization, HierarchyItem
 
 
 # Create your views here.
@@ -45,27 +45,11 @@ class ContentView(generic.DetailView):
     #     return self
 
 
-# Create your views here.
 class HierarchyView(generic.DetailView):
+    model = HierarchyItem
     template_name = 'songsapp/index.html'
-    context_object_name = 'nodes_list'
 
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
-        context = super(HierarchyView, self).get_context_data(**kwargs)
-        # Add in the publisher
-
-        if hasattr(self.object, 'author'):
-            name = self.object.author.name
-        elif hasattr(self.object, 'song'):
-        context['node'] = self.publisher
-        return context
-
-    def get_queryset(self):
-        return self.object.children.order_by('id')
-        # def get_queryset(self):
-        #     """Return 20 first in alphabet songs"""
-        #     return Song.objects.order_by('title')[:20]
+    context_object_name = 'node'
 
 #
 # def index(request):
