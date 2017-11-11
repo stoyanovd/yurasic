@@ -9,16 +9,22 @@
             {{ song.title }}
         </h1>
 
-        <ul>
-            {% for r in song.realization_set.all %}
-                <div class="song_text_style">
-                    {#                    <b>#}
-                    {#                        {{ r.create_date }}#}
-                    {#                    </b>#}
-                    <br />
-                    {{ r.content|turn_tabs_to_spaces|linebreaksbr|chordify|color_song_keywords }}
-                </div>
-            {% endfor %}
-        </ul>
+        <div class="container h-100">
+            <div class="row h-100 justify-content-center align-items-center">
+
+                {#        <ul class="d-block m-x-auto">#}
+                <ul>
+                    {% for r in song.realization_set.all %}
+                        <div class="song_text_style">
+                            {#                    <b>#}
+                            {#                        {{ r.create_date }}#}
+                            {#                    </b>#}
+                            <br/>
+                            {{ r.content|turn_tabs_to_spaces|linebreaksbr|chordify|color_song_keywords }}
+                        </div>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
     </div>
 {% endblock %}
