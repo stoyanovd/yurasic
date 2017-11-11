@@ -4,8 +4,10 @@ import os
 
 import yaml
 
-
 # https://docs.python.org/3/library/configparser.html
+
+debug_mode = False
+
 
 def try_get_env(env_file):
     if not os.path.exists(env_file):
@@ -16,12 +18,14 @@ def try_get_env(env_file):
     with open(env_file) as f:
         d = yaml.load(f.read())
 
-    print('Parse env file: "', env_file, '"')
+    if debug_mode:
+        print('Parse env file: "', env_file, '"')
 
     # default_keyword = 'DEFAULT'
     # print('Currently only its ', default_keyword, ' section')
 
-    print(d)
+    if debug_mode:
+        print(d)
 
     for k, v in d.items():
         k = k.upper()
@@ -32,4 +36,5 @@ def try_get_env(env_file):
 
         os.environ[k] = v
 
-        print('SET ', k, ' as ', v)
+        if debug_mode:
+            print('SET ', k, ' as ', v)
