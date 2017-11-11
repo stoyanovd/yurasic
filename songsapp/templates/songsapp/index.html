@@ -27,13 +27,13 @@
 
                     <a href="{% url 'songsapp:song_content' child.1.id %}" class="list-group-item list-group-item-action "
                        style="margin-bottom: 10px; margin-left: 30px; background-color: slategray; color: ghostwhite;
-                    border-radius: 10px;">{{ child.name }}</a>
+                    border-radius: 10px;">{{ child.0.name }}</a>
 
                 {% else %}
 
                     <a href="{% url 'songsapp:hierarchy' child.0.id %}" class="list-group-item list-group-item-action "
                        style="margin-bottom: 10px; margin-left: 30px; background-color: slategray; color: ghostwhite;
-                    border-radius: 10px;">{{ child.name }}</a>
+                    border-radius: 10px;">{{ child.0.name }}</a>
 
                 {% endif %}
 

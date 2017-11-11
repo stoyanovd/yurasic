@@ -39,7 +39,7 @@ class Author(models.Model):
     name = models.CharField(max_length=MC.MAX_NAME_LENGTH, blank=False)
     tags = models.ManyToManyField(Tag, blank=True)
 
-    node = models.OneToOneField('HierarchyItem', null=True)
+    node = models.OneToOneField('HierarchyItem', null=True, related_name='author')
 
     def __str__(self):
         return self.name
@@ -55,7 +55,7 @@ class Song(models.Model):
     authors = models.ManyToManyField(Author)
     tags = models.ManyToManyField(Tag, blank=True)
 
-    node = models.OneToOneField('HierarchyItem', null=True, related_name='target')
+    node = models.OneToOneField('HierarchyItem', null=True, related_name='song')
 
     def __str__(self):
         return self.title

@@ -65,6 +65,8 @@ class SongSpider(scrapy.Spider):
         entry_name = entry_name_list[0]
         entry_name = entry_name.strip()
 
+        print('entry_name: ' + entry_name)
+
         meta_modified = copy.deepcopy(response.meta)
 
         if HIERARCHY_KEY not in meta_modified:
@@ -76,7 +78,7 @@ class SongSpider(scrapy.Spider):
             parent = meta_modified[HIERARCHY_KEY]
             assert isinstance(parent, Node)
 
-            n = Node(url=response.url, name=entry_name, children=[], parent=parent,
+            n = Node(url=url, name=entry_name, children=[], parent=parent,
                      models=self.models)
             self.hierarchy[n.url] = n
 
@@ -98,15 +100,15 @@ class SongSpider(scrapy.Spider):
         song_title = u''.join(song_title)
 
         assert HIERARCHY_KEY in response.meta
-        parent = response.meta[HIERARCHY_KEY]
-        assert isinstance(parent, Node)
-
-        n = Node(url=response.url, name=song_title, children=[], parent=parent,
-                 models=self.models)
-
-        self.hierarchy[n.url] = n
-
-        parent.children.append(n)
+        current = response.meta[HIERARCHY_KEY]
+        assert isinstance(current, Node)
+        #
+        # n = Node(url=response.url, name=song_title, children=[], parent=parent,
+        #          models=self.models)
+        #
+        # self.hierarchy[n.url] = n
+        #
+        # parent.children.append(n)
 
         song_item = SongItem()
 
@@ -116,7 +118,7 @@ class SongSpider(scrapy.Spider):
         song_item['author'] = '-empty-author-'
         song_item['tags'] = '-empty-tags-'
 
-        self.insert_song_to_db(n, song_item)
+        self.insert_song_to_db(current, song_item)
 
         # self.write_to_file(i, response.meta[HIERARCHY_KEY])
 
