@@ -15,7 +15,7 @@ urlpatterns = [
 
     url(r'^songs/(?P<pk>[0-9]+)/$', views.ContentView.as_view(), name='song_content'),
 
-    url(r'^catalog/$', RedirectView.as_view(url='catalog/0'), name='hierarchy_root'),
+    url(r'^catalog/$', RedirectView.as_view(url='catalog/1'), name='hierarchy_root'),
     url(r'^catalog/(?P<pk>[0-9]+)/$', views.HierarchyView.as_view(), name='hierarchy'),
 
     # url(r'^songs/(?P<pk>[0-9]+)/song_realizations/$', views.ContentView.as_view(), name='song_realizations'),

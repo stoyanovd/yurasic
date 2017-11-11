@@ -51,6 +51,22 @@ class HierarchyView(generic.DetailView):
 
     context_object_name = 'node'
 
+    def get_context_data(self, **kwargs):
+        context = super(HierarchyView, self).get_context_data(**kwargs)
+
+        # children = HierarchyItem.objects.filter(parent_id__exact=self.object.id)
+        children = self.object.children.all()
+        is_leaf = lambda n: len(n.children.all()) == 0
+        song_if_leaf = lambda n: n.song if is_leaf(n) else None
+
+        children = [(n, song_if_leaf(n)) for n in children]
+        print(children)
+        context['children'] = children
+        return context
+
+        # def get_context_data(self, **kwargs):(self):
+        #     return self
+
 #
 # def index(request):
 #     alphabet_songs_list = Song.objects.order_by('title')[:5]

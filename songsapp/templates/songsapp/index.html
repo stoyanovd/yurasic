@@ -20,18 +20,18 @@
         </a>
     </div>
 
-    {% if node.children %}
+    {% if children %}
         <div class="list-group" style="width: 800px; margin-left: auto; margin-right: auto;">
-            {% for child in node.children %}
-                {% if child.children|length == 0 %}
+            {% for child in children %}
+                {% if child.1 != None %}
 
-                    <a href="{% url 'songsapp:song_content' child.song.id %}" class="list-group-item list-group-item-action "
+                    <a href="{% url 'songsapp:song_content' child.1.id %}" class="list-group-item list-group-item-action "
                        style="margin-bottom: 10px; margin-left: 30px; background-color: slategray; color: ghostwhite;
                     border-radius: 10px;">{{ child.name }}</a>
 
                 {% else %}
 
-                    <a href="{% url 'songsapp:hierarchy' child.id %}" class="list-group-item list-group-item-action "
+                    <a href="{% url 'songsapp:hierarchy' child.0.id %}" class="list-group-item list-group-item-action "
                        style="margin-bottom: 10px; margin-left: 30px; background-color: slategray; color: ghostwhite;
                     border-radius: 10px;">{{ child.name }}</a>
 
