@@ -29,4 +29,7 @@ function initializeTogglerChordsText() {
     }
 }
 
-// initializeTogglerChordsText();
+$(document).ready(function () {
+    initializeTogglerChordsText();
+});
+
