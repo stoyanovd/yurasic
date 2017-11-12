@@ -18,46 +18,47 @@
             {{ song.title }}
         </h1>
 
-        <div class="container-fluid h-100">
-            <div class="row h-100 justify-content-center align-items-center">
+        <div class="container-fluid h-100" style="margin-left: 30px;">
+            {#        NO use 'row' here: it has -15px margin;#}
+            <div class="h-100 justify-content-center align-items-center">
                 {#        <ul class="d-block m-x-auto">#}
                 <ul>
                     {% for r in song.realization_set.all %}
-                            {# ### Edit ### #}
-                            <a href="{% url 'admin:songsapp_realization_change' r.id %}"
-                               class="btn btn-outline-primary">
-                                Edit
-                            </a>
+                        {# ### Edit ### #}
+                        <a href="{% url 'admin:songsapp_realization_change' r.id %}"
+                           class="btn btn-outline-primary">
+                            Edit
+                        </a>
 
-                            {# ### Chords-Text toggler ### #}
-                            <div class="btn-group" data-toggle="buttons">
-                                <label class="btn btn-primary active rrr">
-                                    <input type="radio" name="toggle_chords_radio" value="both"
-                                           autocomplete="off" checked>
-                                    Normal
-                                </label>
-                                <label class="btn btn-primary rrr">
-                                    <input type="radio" name="toggle_chords_radio" value="chords"
-                                           autocomplete="off">
-                                    Chords
-                                </label>
-                                <label class="btn btn-primary rrr">
-                                    <input type="radio" name="toggle_chords_radio" value="text"
-                                           autocomplete="off">
-                                    Text
-                                </label>
-                            </div>
+                        {# ### Chords-Text toggler ### #}
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-primary active rrr">
+                                <input type="radio" name="toggle_chords_radio" value="both"
+                                       autocomplete="off" checked>
+                                Normal
+                            </label>
+                            <label class="btn btn-primary rrr">
+                                <input type="radio" name="toggle_chords_radio" value="chords"
+                                       autocomplete="off">
+                                Chords
+                            </label>
+                            <label class="btn btn-primary rrr">
+                                <input type="radio" name="toggle_chords_radio" value="text"
+                                       autocomplete="off">
+                                Text
+                            </label>
+                        </div>
 
-                            {# ### Song's text ### #}
-{#                            <div class="song_text_style" style="min-width: 600px; font-size: larger;">#}
-                            <div class="song_text_style" style="">
-                                {#                        {{ r.create_date }}#}
-                                <br/>
-                                {# Attention: about leading spaces - either use such div around or set fromatter off and no-indent #}
-                                <div>{{ r.content|turn_tabs_to_spaces|linebreaksbr|chordify|add_spans_to_text|color_song_keywords }}</div>
+                        {# ### Song's text ### #}
+                        {#                            <div class="song_text_style" style="min-width: 600px; font-size: larger;">#}
+                        <div class="song_text_style" style="">
+                            {#                        {{ r.create_date }}#}
+                            <br/>
+                            {# Attention: about leading spaces - either use such div around or set fromatter off and no-indent #}
+                            <div>{{ r.content|turn_tabs_to_spaces|linebreaksbr|chordify|add_spans_to_text|color_song_keywords }}</div>
 
-                                <script>initializeTogglerChordsText();</script>
-                            </div>
+                            <script>initializeTogglerChordsText();</script>
+                        </div>
                     {% endfor %}
                 </ul>
             </div>
