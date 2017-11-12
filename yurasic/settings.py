@@ -72,6 +72,8 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'yurasic.urls'
@@ -139,7 +141,7 @@ else:
 import dj_database_url
 
 db_from_env = dj_database_url.config(conn_max_age=500)
-for k,v in db_from_env.items():
+for k, v in db_from_env.items():
     # not None and not empty
     if v:
         DATABASES['default'][k] = v
@@ -212,3 +214,6 @@ STATICFILES_DIR = [
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+
+# # Finally, if you’d like gzip functionality enabled, also add the following setting to settings.py.
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
