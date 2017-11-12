@@ -23,7 +23,6 @@
                 {#        <ul class="d-block m-x-auto">#}
                 <ul>
                     {% for r in song.realization_set.all %}
-                        <div>
                             {# ### Edit ### #}
                             <a href="{% url 'admin:songsapp_realization_change' r.id %}"
                                class="btn btn-outline-primary">
@@ -59,10 +58,7 @@
 
                                 <script>initializeTogglerChordsText();</script>
                             </div>
-                        </div>
-
                     {% endfor %}
-
                 </ul>
             </div>
         </div>
