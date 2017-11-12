@@ -95,8 +95,9 @@ class SongSpider(scrapy.Spider):
             song_content += sub_list
         song_content = u''.join(song_content)
         # local for yurasic hack
-        if song_content.startswith('\t\t\t'):
-            song_content = song_content[3:]
+        song_content = song_content.strip('\n').strip('\t')
+        # if song_content.startswith(u'\t\t\t'):
+        #     song_content = song_content[3:]
         song_content = song_content.replace('  ', ' ')
 
         song_title = []
