@@ -1,16 +1,16 @@
 function toggleOnlyChordsVisibility() {
-    $('.chords_line_collapse').css('display', 'inline');
+    $('.chords_line_collapse').css('display', 'inline').addClass('chords_line_no_pre');
     $('.text_collapse').css('display', 'none');
 }
 
 function toggleOnlyTextVisibility() {
-    $('.chords_line_collapse').css('display', 'none');
+    $('.chords_line_collapse').css('display', 'none').removeClass('chords_line_no_pre').removeClass('chords_line_no_pre');
     $('.text_collapse').css('display', 'inline');
 
 }
 
 function toggleBothChordsAndTextVisibility() {
-    $('.chords_line_collapse').css('display', 'inline');
+    $('.chords_line_collapse').css('display', 'inline').removeClass('chords_line_no_pre').removeClass('chords_line_no_pre');
     $('.text_collapse').css('display', 'inline');
 }
 
