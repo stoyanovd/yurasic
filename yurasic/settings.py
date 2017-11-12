@@ -43,6 +43,13 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     'yurasic.herokuapp.com',
+    'yurasic.me',
+    'www.yurasic.me',
+
+    # excess but for check
+    'yurasic.me.herokudns.com',
+    'www.yurasic.me.herokudns.com',
+
     '127.0.0.1'
 ]
 
