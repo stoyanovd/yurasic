@@ -14,13 +14,14 @@
             </ol>
         </div>
 
-        <h1 style="color: white; margin-left: 20px;">
-            {{ song.title }}
-        </h1>
-
-        <div class="container-fluid h-100" style="margin-left: 30px;">
-            {#        NO use 'row' here: it has -15px margin;#}
+        <div class="container-fluid h-100" style="">
             <div class="h-100 justify-content-center align-items-center">
+            
+                <h1 style="color: white; margin-left: 40px;">
+                    {{ song.title }}
+                </h1>
+
+                {#        NO use 'row' here: it has -15px margin; you nedd col to work with row#}
                 {#        <ul class="d-block m-x-auto">#}
                 <ul>
                     {% for r in song.realization_set.all %}
