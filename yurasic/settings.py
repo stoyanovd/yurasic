@@ -47,8 +47,8 @@ ALLOWED_HOSTS = [
     'www.yurasic.me',
 
     # excess but for check
-    'yurasic.me.herokudns.com',
-    'www.yurasic.me.herokudns.com',
+    # 'yurasic.me.herokudns.com',
+    # 'www.yurasic.me.herokudns.com',
 
     '127.0.0.1'
 ]
