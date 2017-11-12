@@ -29,9 +29,9 @@ class Node:
 
 class SongSpider(scrapy.Spider):
     name = 'yurasic_spider_to_db'
-    # start_urls = ['http://www.yurasic.ru']
+    start_urls = ['http://www.yurasic.ru']
     # start_urls = ['http://www.yurasic.ru/catalog/pesni-u-kostra']
-    start_urls = ['http://www.yurasic.ru/catalog/pesni-iz-kino-i-serialov']
+    # start_urls = ['http://www.yurasic.ru/catalog/pesni-iz-kino-i-serialov']
 
     def __init__(self, **kwargs):
         super(SongSpider, self).__init__(**kwargs)
