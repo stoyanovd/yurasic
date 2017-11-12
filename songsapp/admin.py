@@ -20,4 +20,4 @@ from .models import Author, Song, Realization, Tag, HierarchyItem
 
 # admin.site.register(Book, BookAdmin)
 
-admin.site.register(Author, Song, Realization, Tag, HierarchyItem)
+admin.site.register([Author, Song, Realization, Tag, HierarchyItem])

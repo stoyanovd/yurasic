@@ -35,7 +35,7 @@ urlpatterns += [
     url(r'', include('songsapp.urls'))
 ]
 urlpatterns += [
-    url(r'^$', RedirectView.as_view(url='songs/', permanent=False))
+    url(r'^$', RedirectView.as_view(url='catalog/1', permanent=False))
 ]
 
 urlpatterns += staticfiles_urlpatterns()

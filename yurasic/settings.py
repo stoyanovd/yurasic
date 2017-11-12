@@ -39,7 +39,7 @@ try_get_env('.env.yaml')
 SECRET_KEY = os.environ['YURASIC_SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     'yurasic.herokuapp.com',
