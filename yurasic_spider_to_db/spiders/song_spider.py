@@ -30,7 +30,8 @@ class Node:
 class SongSpider(scrapy.Spider):
     name = 'yurasic_spider_to_db'
     # start_urls = ['http://www.yurasic.ru']
-    start_urls = ['http://www.yurasic.ru/catalog/pesni-u-kostra']
+    # start_urls = ['http://www.yurasic.ru/catalog/pesni-u-kostra']
+    start_urls = ['http://www.yurasic.ru/catalog/pesni-iz-kino-i-serialov']
 
     def __init__(self, **kwargs):
         super(SongSpider, self).__init__(**kwargs)
@@ -93,6 +94,10 @@ class SongSpider(scrapy.Spider):
         for sub_list in response.xpath('//*[@id="songStyle"]/pre/text()').extract():
             song_content += sub_list
         song_content = u''.join(song_content)
+        # local for yurasic hack
+        if song_content.startswith('\t\t\t'):
+            song_content = song_content[3:]
+        song_content = song_content.replace('  ', ' ')
 
         song_title = []
         for sub_list in response.xpath('//*[@id="page_title_song"]/h1/text()').extract():
