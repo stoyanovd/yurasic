@@ -1,0 +1,8 @@
+{
+  "allowSyntheticDefaultImports": true,
+  "target": "ES5",
+//  "moduleResolution": "node",
+  "lib": ["es2016","dom"],
+  "compilerOptions.module": { "target": "es5", "module": "none" }
+}
+
