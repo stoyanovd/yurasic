@@ -69,7 +69,7 @@
                             {#                        {{ r.create_date }}#}
                             <br/>
                             {# Attention: about leading spaces - either use such div around or set fromatter off and no-indent #}
-                            <div>{{ r.content|turn_tabs_to_spaces|linebreaksbr|chordify|add_spans_to_text|color_song_keywords }}</div>
+                            <div style="display: inline-block">{{ r.content|turn_tabs_to_spaces|linebreaksbr|chordify|add_spans_to_text|color_song_keywords }}</div>
 
                             <script>initializeTogglerChordsText();</script>
                         </div>
