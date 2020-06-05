@@ -9,7 +9,7 @@ constantly==15.1.0
 cryptography==1.9
 cssselect==1.0.1
 dj-database-url==0.4.2
-Django==1.11.2
+Django==1.11.29
 django-extensions==1.9.7
 django-haystack==2.6.1
 elasticsearch==5.4.0
